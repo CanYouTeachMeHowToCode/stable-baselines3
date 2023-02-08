@@ -63,7 +63,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
         max_grad_norm: float,
         use_sde: bool,
         sde_sample_freq: int,
-        use_n_step_advantage: bool,
+        use_n_step_advantage: bool = False,
         tensorboard_log: Optional[str] = None,
         monitor_wrapper: bool = True,
         policy_kwargs: Optional[Dict[str, Any]] = None,
