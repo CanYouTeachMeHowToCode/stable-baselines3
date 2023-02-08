@@ -63,6 +63,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
         max_grad_norm: float,
         use_sde: bool,
         sde_sample_freq: int,
+        use_n_step_advantage: bool,
         tensorboard_log: Optional[str] = None,
         monitor_wrapper: bool = True,
         policy_kwargs: Optional[Dict[str, Any]] = None,
@@ -94,6 +95,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
         self.vf_coef = vf_coef
         self.max_grad_norm = max_grad_norm
         self.rollout_buffer = None
+        self.use_n_step_advantage = use_n_step_advantage
 
         if _init_setup_model:
             self._setup_model()
@@ -112,6 +114,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
             gamma=self.gamma,
             gae_lambda=self.gae_lambda,
             n_envs=self.n_envs,
+            use_n_step_advantage = self.use_n_step_advantage
         )
         self.policy = self.policy_class(  # pytype:disable=not-instantiable
             self.observation_space,
@@ -266,6 +269,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
 
             self.train()
 
+        if self.use_n_step_advantage: print("using n-step advantage")
         callback.on_training_end()
 
         return self
