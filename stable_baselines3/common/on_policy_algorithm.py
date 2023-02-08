@@ -82,7 +82,6 @@ class OnPolicyAlgorithm(BaseAlgorithm):
             device=device,
             use_sde=use_sde,
             sde_sample_freq=sde_sample_freq,
-            use_n_step_advantage=use_n_step_advantage,
             support_multi_env=True,
             seed=seed,
             tensorboard_log=tensorboard_log,
